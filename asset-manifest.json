@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/static/js/main.e60a1726.chunk.js",
-    "main.js.map": "/static/js/main.e60a1726.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.d460cffe.js",
-    "runtime-main.js.map": "/static/js/runtime-main.d460cffe.js.map",
-    "static/js/2.d45b1e9b.chunk.js": "/static/js/2.d45b1e9b.chunk.js",
-    "static/js/2.d45b1e9b.chunk.js.map": "/static/js/2.d45b1e9b.chunk.js.map",
-    "static/js/3.9e788bbc.chunk.js": "/static/js/3.9e788bbc.chunk.js",
-    "static/js/3.9e788bbc.chunk.js.map": "/static/js/3.9e788bbc.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.d45b1e9b.chunk.js.LICENSE.txt": "/static/js/2.d45b1e9b.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg"
+    "main.css": "/tdr-frontend-prototype/static/css/main.9d5b29c0.chunk.css",
+    "main.js": "/tdr-frontend-prototype/static/js/main.e60a1726.chunk.js",
+    "main.js.map": "/tdr-frontend-prototype/static/js/main.e60a1726.chunk.js.map",
+    "runtime-main.js": "/tdr-frontend-prototype/static/js/runtime-main.3247820f.js",
+    "runtime-main.js.map": "/tdr-frontend-prototype/static/js/runtime-main.3247820f.js.map",
+    "static/js/2.d45b1e9b.chunk.js": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js",
+    "static/js/2.d45b1e9b.chunk.js.map": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js.map",
+    "static/js/3.9e788bbc.chunk.js": "/tdr-frontend-prototype/static/js/3.9e788bbc.chunk.js",
+    "static/js/3.9e788bbc.chunk.js.map": "/tdr-frontend-prototype/static/js/3.9e788bbc.chunk.js.map",
+    "index.html": "/tdr-frontend-prototype/index.html",
+    "static/css/main.9d5b29c0.chunk.css.map": "/tdr-frontend-prototype/static/css/main.9d5b29c0.chunk.css.map",
+    "static/js/2.d45b1e9b.chunk.js.LICENSE.txt": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/tdr-frontend-prototype/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d460cffe.js",
+    "static/js/runtime-main.3247820f.js",
     "static/js/2.d45b1e9b.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
     "static/js/main.e60a1726.chunk.js"
