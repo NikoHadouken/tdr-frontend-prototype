@@ -1,23 +1,26 @@
 {
   "files": {
-    "main.css": "/tdr-frontend-prototype/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/tdr-frontend-prototype/static/js/main.e60a1726.chunk.js",
-    "main.js.map": "/tdr-frontend-prototype/static/js/main.e60a1726.chunk.js.map",
-    "runtime-main.js": "/tdr-frontend-prototype/static/js/runtime-main.3247820f.js",
-    "runtime-main.js.map": "/tdr-frontend-prototype/static/js/runtime-main.3247820f.js.map",
-    "static/js/2.d45b1e9b.chunk.js": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js",
-    "static/js/2.d45b1e9b.chunk.js.map": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js.map",
-    "static/js/3.9e788bbc.chunk.js": "/tdr-frontend-prototype/static/js/3.9e788bbc.chunk.js",
-    "static/js/3.9e788bbc.chunk.js.map": "/tdr-frontend-prototype/static/js/3.9e788bbc.chunk.js.map",
+    "main.css": "/tdr-frontend-prototype/static/css/main.a846f971.chunk.css",
+    "main.js": "/tdr-frontend-prototype/static/js/main.5eb870e2.chunk.js",
+    "main.js.map": "/tdr-frontend-prototype/static/js/main.5eb870e2.chunk.js.map",
+    "runtime-main.js": "/tdr-frontend-prototype/static/js/runtime-main.b89c1a26.js",
+    "runtime-main.js.map": "/tdr-frontend-prototype/static/js/runtime-main.b89c1a26.js.map",
+    "static/css/2.75531a31.chunk.css": "/tdr-frontend-prototype/static/css/2.75531a31.chunk.css",
+    "static/js/2.b6d2b109.chunk.js": "/tdr-frontend-prototype/static/js/2.b6d2b109.chunk.js",
+    "static/js/2.b6d2b109.chunk.js.map": "/tdr-frontend-prototype/static/js/2.b6d2b109.chunk.js.map",
+    "static/js/3.dfc9d75c.chunk.js": "/tdr-frontend-prototype/static/js/3.dfc9d75c.chunk.js",
+    "static/js/3.dfc9d75c.chunk.js.map": "/tdr-frontend-prototype/static/js/3.dfc9d75c.chunk.js.map",
     "index.html": "/tdr-frontend-prototype/index.html",
-    "static/css/main.9d5b29c0.chunk.css.map": "/tdr-frontend-prototype/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.d45b1e9b.chunk.js.LICENSE.txt": "/tdr-frontend-prototype/static/js/2.d45b1e9b.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/tdr-frontend-prototype/static/media/logo.6ce24c58.svg"
+    "static/css/2.75531a31.chunk.css.map": "/tdr-frontend-prototype/static/css/2.75531a31.chunk.css.map",
+    "static/css/main.a846f971.chunk.css.map": "/tdr-frontend-prototype/static/css/main.a846f971.chunk.css.map",
+    "static/js/2.b6d2b109.chunk.js.LICENSE.txt": "/tdr-frontend-prototype/static/js/2.b6d2b109.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/tdr-frontend-prototype/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.3247820f.js",
-    "static/js/2.d45b1e9b.chunk.js",
-    "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.e60a1726.chunk.js"
+    "static/js/runtime-main.b89c1a26.js",
+    "static/css/2.75531a31.chunk.css",
+    "static/js/2.b6d2b109.chunk.js",
+    "static/css/main.a846f971.chunk.css",
+    "static/js/main.5eb870e2.chunk.js"
   ]
 }
