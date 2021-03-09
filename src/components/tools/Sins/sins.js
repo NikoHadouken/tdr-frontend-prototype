@@ -1,5 +1,5 @@
 export const factors = {
-  segment: {
+  location: {
     title: 'Wirbelsäulensegement',
     options: {
       occiput: { key: 'occiput', label: 'Occiput', points: 3 },
@@ -35,33 +35,34 @@ export const factors = {
   pain: {
     title: 'Schmerz',
     options: {
-      movement_dependent: {
-        key: 'movement_dependent',
+      mechanical: {
+        key: 'mechanical',
         label: 'bewegungsabhängig',
-        points: 2,
+        points: 3,
       },
-      intermittent: {
-        key: 'intermittent',
+      none_mechanical: {
+        key: 'none_mechanical',
         label: 'intermittierend, aber nicht bewegungsabhängig',
-        points: 1,
+        points: 2,
       },
       no_pain: {
         key: 'no_pain',
         label: 'kein Schmerz',
-        points: 0,
+        points: 1,
       },
       unknown: {
         key: 'unknown',
         label: 'unbekannt',
-        points: 0,
+        points: 1,
       },
     },
   },
-  lesion_density: {
+
+  bone_lesion: {
     title: 'Dichte der Läsion',
     options: {
-      osteolytic: {
-        key: 'osteolytic',
+      lytic: {
+        key: 'lytic',
         label: 'osteolytisch',
         points: 2,
       },
@@ -70,8 +71,8 @@ export const factors = {
         label: 'gemischt',
         points: 1,
       },
-      osteoplastic: {
-        key: 'osteoplastic',
+      blastic: {
+        key: 'blastic',
         label: 'osteoplastisch',
         points: 0,
       },
@@ -81,13 +82,13 @@ export const factors = {
   alignment: {
     title: 'Alignment',
     options: {
-      displaced: {
-        key: 'displaced',
+      translation: {
+        key: 'translation',
         label: 'Subluxation / Translation',
         points: 4,
       },
-      deformed: {
-        key: 'deformed',
+      deformity: {
+        key: 'deformity',
         label: 'De novo Deformität (kyphotisch/skoliotisch)',
         points: 2,
       },
@@ -99,7 +100,7 @@ export const factors = {
     },
   },
 
-  space_reduction: {
+  vertebral_body_collapse: {
     title: 'Höhenminderung der Zwischenwirbelräume',
     options: {
       gt_half: {
@@ -125,7 +126,7 @@ export const factors = {
     },
   },
 
-  dorsal_involvement: {
+  posterolateral_involvement: {
     title: 'Beteiligung dorsaler Wirbelstrukturen',
     options: {
       bilateral: {
@@ -145,4 +146,58 @@ export const factors = {
       },
     },
   },
+}
+
+const conditions = [
+  {
+    key: 'unstable',
+    match: (sum) => sum >= 13,
+  },
+
+  {
+    key: 'unstable_with_any_pain',
+    match: (sum, selections) => selections.pain === 'unknown' && sum === 12,
+  },
+
+  {
+    key: 'unstable_with_mechanical_pain',
+    match: (sum, selections) => selections.pain === 'unknown' && sum === 11,
+  },
+
+  {
+    key: 'potentially_unstable',
+    match: (sum) => sum >= 7,
+  },
+
+  {
+    key: 'potentially_unstable_with_any_pain',
+    match: (sum, selections) => selections.pain === 'unknown' && sum === 6,
+  },
+
+  {
+    key: 'potentially_unstable_with_mechanical_pain',
+    match: (sum, selections) => selections.pain === 'unknown' && sum === 5,
+  },
+
+  {
+    key: 'stable',
+    match: () => true,
+  },
+]
+
+export const calculateScore = (selections) => {
+  const value = Object.entries(selections).reduce(
+    (acc, [factorKey, optionKey]) => {
+      const option = factors[factorKey].options[optionKey]
+      return acc + option.points
+    },
+    0
+  )
+
+  const { key } = conditions.find((cond) => cond.match(value, selections))
+
+  return {
+    key,
+    value,
+  }
 }

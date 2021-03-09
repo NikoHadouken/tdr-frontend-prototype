@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 
-import { factors } from './sins'
+import { factors, calculateScore } from './sins'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -25,39 +25,38 @@ const Sins = () => {
   const classes = useStyles()
   const [error, setError] = React.useState(false)
 
-  const [selection, setSelection] = useState({
-    segment: false,
+  const [selections, setSelections] = useState({
+    location: false,
     pain: false,
-    lesion_density: false,
+    bone_lesion: false,
     alignment: false,
-    space_reduction: false,
-    dorsal_involvement: false,
+    vertebral_body_collapse: false,
+    posterolateral_involvement: false,
   })
 
-  const handleRadioChange = (e) => {
-    setSelection({
-      ...selection,
-      pain: e.target.value,
+  const handleChange = (e) => {
+    setSelections({
+      ...selections,
+      [e.target.name]: e.target.value,
     })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(selection)
+    console.log(selections)
+    try {
+      const score = calculateScore(selections)
+      console.log(score)
+    } catch (err) {
+      setError(err)
+    }
   }
 
-  // const segmentOptions = Object.entries(
-  //   factors.segment.options
-  // ).map(([key, val]) => ({ key, label: val.label }))
-  const segmentOptions = Object.values(factors.segment.options)
-
-  const options = Object.values(factors.pain.options)
-
-  const handleSegmentChange = (_e, option) => {
+  const handleLocationChange = (_e, option) => {
     if (!option) return
-    setSelection({
-      ...selection,
-      segment: option.key,
+    setSelections({
+      ...selections,
+      location: option.key,
     })
   }
 
@@ -68,51 +67,65 @@ const Sins = () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <Autocomplete
-          name="segment"
-          onChange={handleSegmentChange}
-          // value={selection.segment}
-          options={segmentOptions}
+          name="location"
+          onChange={handleLocationChange}
+          // value={selections.location}
+          options={Object.values(factors.location.options)}
           getOptionLabel={(option) => option.label}
           getOptionSelected={(option, val) => option.key === val.key}
           style={{ width: 300 }}
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Wirbelsäulensegement"
+              label={factors.location.title}
               variant="outlined"
             />
           )}
         />
-        <FormControl
-          component="fieldset"
-          error={error}
-          className={classes.formControl}
+        {[
+          'pain',
+          'bone_lesion',
+          'alignment',
+          'vertebral_body_collapse',
+          'posterolateral_involvement',
+        ].map((factorKey) => {
+          const { title, options } = factors[factorKey]
+          return (
+            <FormControl
+              component="fieldset"
+              error={error}
+              className={classes.formControl}
+            >
+              <FormLabel component="legend">{title}</FormLabel>
+              <RadioGroup
+                aria-label={factorKey}
+                name={factorKey}
+                value={selections[factorKey]}
+                onChange={handleChange}
+              >
+                {Object.values(options).map(
+                  ({ key: optionKey, label, points }) => (
+                    <FormControlLabel
+                      value={optionKey}
+                      control={<Radio />}
+                      label={label}
+                    />
+                  )
+                )}
+              </RadioGroup>
+            </FormControl>
+          )
+        })}
+
+        <FormHelperText>helper text</FormHelperText>
+        <Button
+          type="submit"
+          variant="outlined"
+          color="primary"
+          className={classes.button}
         >
-          <FormLabel component="legend">Schmerz</FormLabel>
-          <RadioGroup
-            aria-label="pain"
-            name="pain"
-            value={selection.pain}
-            onChange={handleRadioChange}
-          >
-            {options.map((option) => (
-              <FormControlLabel
-                value={option.key}
-                control={<Radio />}
-                label={`${option.label} (${option.points} Punkte)`}
-              />
-            ))}
-          </RadioGroup>
-          <FormHelperText>helper text</FormHelperText>
-          <Button
-            type="submit"
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-          >
-            Auswerten
-          </Button>
-        </FormControl>
+          Auswerten
+        </Button>
       </form>
     </>
   )
