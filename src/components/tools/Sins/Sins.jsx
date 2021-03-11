@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
 import TextField from '@material-ui/core/TextField'
+import Alert from '@material-ui/lab/Alert'
 
 import Autocomplete from '@material-ui/lab/Autocomplete'
 
@@ -108,7 +109,13 @@ const Sins = () => {
             </FormControl>
           )
         })}
-        <CopyTextBox title="Auswertung" text={resultText} />
+        {resultText ? (
+          <CopyTextBox title="Auswertung" text={resultText} />
+        ) : (
+          <Alert severity="info">
+            Für eine Auswertung müssen alle Felder ausgefüllt sein.
+          </Alert>
+        )}
       </form>
     </>
   )
