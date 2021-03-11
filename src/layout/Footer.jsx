@@ -7,7 +7,9 @@ const Footer = () => {
   return (
     <footer>
       <Container>
-        <Typography align="center">footer</Typography>
+        <Typography align="center" color="textSecondary">
+          &#169; G Enterprises 2021
+        </Typography>
       </Container>
     </footer>
   )

@@ -1,34 +1,34 @@
 export const factors = {
   location: {
-    title: 'Wirbelsäulensegement',
+    title: 'Ort',
     options: {
       occiput: { key: 'occiput', label: 'Occiput', points: 3 },
-      c1: { key: 'c1', label: 'C 1', points: 3 },
-      c2: { key: 'c2', label: 'C 2', points: 3 },
-      c3: { key: 'c3', label: 'C 3', points: 2 },
-      c4: { key: 'c4', label: 'C 4', points: 2 },
-      c5: { key: 'c5', label: 'C 5', points: 2 },
-      c6: { key: 'c6', label: 'C 6', points: 2 },
-      c7: { key: 'c7', label: 'C 7', points: 3 },
-      th1: { key: 'th1', label: 'Th 1', points: 3 },
-      th2: { key: 'th2', label: 'Th 2', points: 3 },
-      th3: { key: 'th3', label: 'Th 3', points: 1 },
-      th4: { key: 'th4', label: 'Th 4', points: 1 },
-      th5: { key: 'th5', label: 'Th 5', points: 1 },
-      th6: { key: 'th6', label: 'Th 6', points: 1 },
-      th7: { key: 'th7', label: 'Th 7', points: 1 },
-      th8: { key: 'th8', label: 'Th 8', points: 1 },
-      th9: { key: 'th9', label: 'Th 9', points: 1 },
-      th10: { key: 'th10', label: 'Th 10', points: 1 },
-      th11: { key: 'th11', label: 'Th 11', points: 3 },
-      th12: { key: 'th12', label: 'Th 12', points: 3 },
-      l1: { key: 'l1', label: 'L 1', points: 3 },
-      l2: { key: 'l2', label: 'L 2', points: 2 },
-      l3: { key: 'l3', label: 'L 3', points: 2 },
-      l4: { key: 'l4', label: 'L 4', points: 2 },
-      l5: { key: 'l5', label: 'L 5', points: 3 },
-      s1: { key: 's1', label: 'S 1', points: 3 },
-      s2_5: { key: 's2_5', label: 'S 2-5', points: 0 },
+      c1: { key: 'c1', label: 'C1', points: 3 },
+      c2: { key: 'c2', label: 'C2', points: 3 },
+      c3: { key: 'c3', label: 'C3', points: 2 },
+      c4: { key: 'c4', label: 'C4', points: 2 },
+      c5: { key: 'c5', label: 'C5', points: 2 },
+      c6: { key: 'c6', label: 'C6', points: 2 },
+      c7: { key: 'c7', label: 'C7', points: 3 },
+      th1: { key: 'th1', label: 'Th1', points: 3 },
+      th2: { key: 'th2', label: 'Th2', points: 3 },
+      th3: { key: 'th3', label: 'Th3', points: 1 },
+      th4: { key: 'th4', label: 'Th4', points: 1 },
+      th5: { key: 'th5', label: 'Th5', points: 1 },
+      th6: { key: 'th6', label: 'Th6', points: 1 },
+      th7: { key: 'th7', label: 'Th7', points: 1 },
+      th8: { key: 'th8', label: 'Th8', points: 1 },
+      th9: { key: 'th9', label: 'Th9', points: 1 },
+      th10: { key: 'th10', label: 'Th10', points: 1 },
+      th11: { key: 'th11', label: 'Th11', points: 3 },
+      th12: { key: 'th12', label: 'Th12', points: 3 },
+      l1: { key: 'l1', label: 'L1', points: 3 },
+      l2: { key: 'l2', label: 'L2', points: 2 },
+      l3: { key: 'l3', label: 'L3', points: 2 },
+      l4: { key: 'l4', label: 'L4', points: 2 },
+      l5: { key: 'l5', label: 'L5', points: 3 },
+      s1: { key: 's1', label: 'S1', points: 3 },
+      s2_5: { key: 's2_5', label: 'S2-5', points: 0 },
     },
   },
 
@@ -148,56 +148,91 @@ export const factors = {
   },
 }
 
-const conditions = [
+const results = [
   {
     key: 'unstable',
-    match: (sum) => sum >= 13,
+    description: 'instabil - chirurgisches Konsil notwendig',
+    condition: (sum) => sum >= 13,
   },
 
   {
     key: 'unstable_with_any_pain',
-    match: (sum, selections) => selections.pain === 'unknown' && sum === 12,
+    description:
+      'instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    condition: (sum, selections) => selections.pain === 'unknown' && sum === 12,
   },
 
   {
     key: 'unstable_with_mechanical_pain',
-    match: (sum, selections) => selections.pain === 'unknown' && sum === 11,
+    description: 'instabil bei Vorliegen von bewegungsabhängigen Schmerzen',
+    condition: (sum, selections) => selections.pain === 'unknown' && sum === 11,
   },
 
   {
     key: 'potentially_unstable',
-    match: (sum) => sum >= 7,
+    description: 'potentiell instabil',
+    condition: (sum) => sum >= 7,
   },
 
   {
     key: 'potentially_unstable_with_any_pain',
-    match: (sum, selections) => selections.pain === 'unknown' && sum === 6,
+    description:
+      'potentiell instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    condition: (sum, selections) => selections.pain === 'unknown' && sum === 6,
   },
 
   {
     key: 'potentially_unstable_with_mechanical_pain',
-    match: (sum, selections) => selections.pain === 'unknown' && sum === 5,
+    description:
+      'potentiell instabil bei Vorliegen von bewegungsabhängigen Schmerzen',
+    condition: (sum, selections) => selections.pain === 'unknown' && sum === 5,
   },
 
   {
     key: 'stable',
-    match: () => true,
+    description: 'stabil',
+    condition: () => true,
   },
 ]
 
 export const calculateScore = (selections) => {
   const value = Object.entries(selections).reduce(
-    (acc, [factorKey, optionKey]) => {
+    (sum, [factorKey, optionKey]) => {
       const option = factors[factorKey].options[optionKey]
-      return acc + option.points
+      return sum + option.points
     },
     0
   )
 
-  const { key } = conditions.find((cond) => cond.match(value, selections))
+  const { key, description } = results.find((result) =>
+    result.condition(value, selections)
+  )
 
   return {
     key,
     value,
+    description,
   }
+}
+
+export const getResultText = (score, selections) => {
+  const items = Object.entries(selections).map(([factorKey, optionKey]) => {
+    const { title, options } = factors[factorKey]
+    const { label: optionLabel, points } = options[optionKey]
+    return ` - ${title}: ${optionLabel} (${points} ${
+      points > 1 ? 'Punkte' : 'Punkt'
+    })`
+  })
+  const selectedLocationLabel =
+    factors.location.options[selections.location].label
+
+  return [
+    `Einschätzung der Stabilität des am stärksten betroffenen Wirbelkörpers ${selectedLocationLabel} anhand des SINS (Spinal Instability Neoplastic Score):`,
+    ` - ${score.description}`,
+    '',
+    `Punkte: ${score.value}`,
+    '',
+    'Faktoren:',
+    ...items,
+  ].join('\n')
 }

@@ -1,29 +1,27 @@
 import React, { useState, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+
 import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import FormLabel from '@material-ui/core/FormLabel'
-import Button from '@material-ui/core/Button'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 
-import { factors, calculateScore } from './sins'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+
+import CopyTextBox from '../../CopyTextBox'
+
+import { factors, calculateScore, getResultText } from './sins'
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(3),
   },
-  button: {
-    margin: theme.spacing(1, 1, 0, 0),
-  },
 }))
 
 const Sins = () => {
   const classes = useStyles()
-  const [error, setError] = React.useState(false)
 
   const [selections, setSelections] = useState({
     location: false,
@@ -34,22 +32,22 @@ const Sins = () => {
     posterolateral_involvement: false,
   })
 
+  const score = useMemo(() => {
+    if (Object.values(selections).includes(false)) {
+      return null
+    }
+    return calculateScore(selections)
+  }, [selections])
+
+  const resultText = useMemo(() => {
+    return score ? getResultText(score, selections) : ''
+  }, [score, selections])
+
   const handleChange = (e) => {
     setSelections({
       ...selections,
       [e.target.name]: e.target.value,
     })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log(selections)
-    try {
-      const score = calculateScore(selections)
-      console.log(score)
-    } catch (err) {
-      setError(err)
-    }
   }
 
   const handleLocationChange = (_e, option) => {
@@ -62,10 +60,10 @@ const Sins = () => {
 
   return (
     <>
-      <h1>
+      <h2>
         SINS <span>(Spinal Instability Neoplastic Score)</span>
-      </h1>
-      <form onSubmit={handleSubmit}>
+      </h2>
+      <form onSubmit={(e) => e.preventDefault()}>
         <Autocomplete
           name="location"
           onChange={handleLocationChange}
@@ -91,11 +89,7 @@ const Sins = () => {
         ].map((factorKey) => {
           const { title, options } = factors[factorKey]
           return (
-            <FormControl
-              component="fieldset"
-              error={error}
-              className={classes.formControl}
-            >
+            <FormControl component="fieldset" className={classes.formControl}>
               <FormLabel component="legend">{title}</FormLabel>
               <RadioGroup
                 aria-label={factorKey}
@@ -103,29 +97,18 @@ const Sins = () => {
                 value={selections[factorKey]}
                 onChange={handleChange}
               >
-                {Object.values(options).map(
-                  ({ key: optionKey, label, points }) => (
-                    <FormControlLabel
-                      value={optionKey}
-                      control={<Radio />}
-                      label={label}
-                    />
-                  )
-                )}
+                {Object.values(options).map(({ key: optionKey, label }) => (
+                  <FormControlLabel
+                    value={optionKey}
+                    control={<Radio />}
+                    label={label}
+                  />
+                ))}
               </RadioGroup>
             </FormControl>
           )
         })}
-
-        <FormHelperText>helper text</FormHelperText>
-        <Button
-          type="submit"
-          variant="outlined"
-          color="primary"
-          className={classes.button}
-        >
-          Auswerten
-        </Button>
+        <CopyTextBox title="Auswertung" text={resultText} />
       </form>
     </>
   )
