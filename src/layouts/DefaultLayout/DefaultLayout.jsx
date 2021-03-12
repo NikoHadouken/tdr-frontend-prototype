@@ -201,7 +201,7 @@ const DefaultLayout = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.title}>
-            Tools for Diagnostic Radiology
+            RadioloG
           </Typography>
           {auth.isLoggedIn ? (
             <div>

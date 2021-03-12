@@ -151,46 +151,55 @@ export const factors = {
 const results = [
   {
     key: 'unstable',
-    description: 'instabil - chirurgisches Konsil notwendig',
+    description: [' - instabil - chirurgisches Konsil notwendig'],
     condition: (sum) => sum >= 13,
   },
 
   {
     key: 'unstable_with_any_pain',
-    description:
-      'instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    description: [
+      ' - potentiell instabil solange keine Schmerzen vorliegen',
+      ' - instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    ],
     condition: (sum, selections) => selections.pain === 'unknown' && sum === 12,
   },
 
   {
     key: 'unstable_with_mechanical_pain',
-    description: 'instabil bei Vorliegen von bewegungsabhängigen Schmerzen',
+    description: [
+      ' - potentiell instabil solange keine bewegungsinduzierten Schmerzen vorliegen',
+      ' - instabil bei Vorliegen von bewegungsinduzierten Schmerzen',
+    ],
     condition: (sum, selections) => selections.pain === 'unknown' && sum === 11,
   },
 
   {
     key: 'potentially_unstable',
-    description: 'potentiell instabil',
+    description: [' - potentiell instabil'],
     condition: (sum) => sum >= 7,
   },
 
   {
     key: 'potentially_unstable_with_any_pain',
-    description:
-      'potentiell instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    description: [
+      ' - stabil solange keine Schmerzen vorliegen',
+      ' - potentiell instabil bei Vorliegen von Schmerzen (unabhängig davon ob bewegungsinduziert oder nicht)',
+    ],
     condition: (sum, selections) => selections.pain === 'unknown' && sum === 6,
   },
 
   {
     key: 'potentially_unstable_with_mechanical_pain',
-    description:
-      'potentiell instabil bei Vorliegen von bewegungsabhängigen Schmerzen',
+    description: [
+      ' - stabil solange keine bewegungsinduzierten Schmerzen vorliegen',
+      ' - potentiell instabil bei Vorliegen von bewegungsinduzierten Schmerzen',
+    ],
     condition: (sum, selections) => selections.pain === 'unknown' && sum === 5,
   },
 
   {
     key: 'stable',
-    description: 'stabil',
+    description: [' - stabil'],
     condition: () => true,
   },
 ]
@@ -216,23 +225,25 @@ export const calculateScore = (selections) => {
 }
 
 export const getResultText = (score, selections) => {
-  const items = Object.entries(selections).map(([factorKey, optionKey]) => {
-    const { title, options } = factors[factorKey]
-    const { label: optionLabel, points } = options[optionKey]
-    return ` - ${title}: ${optionLabel} (${points} ${
-      points === 1 ? 'Punkt' : 'Punkte'
-    })`
-  })
+  const factorItems = Object.entries(selections).map(
+    ([factorKey, optionKey]) => {
+      const { title, options } = factors[factorKey]
+      const { label: optionLabel, points } = options[optionKey]
+      return ` - ${title}: ${optionLabel} (${points} ${
+        points === 1 ? 'Punkt' : 'Punkte'
+      })`
+    }
+  )
   const selectedLocationLabel =
     factors.location.options[selections.location].label
 
   return [
     `Einschätzung der Stabilität des am stärksten betroffenen Wirbelkörpers ${selectedLocationLabel} anhand des SINS (Spinal Instability Neoplastic Score):`,
-    ` - ${score.description}`,
+    ...score.description,
     '',
     `Punkte: ${score.value}`,
     '',
     'Faktoren:',
-    ...items,
+    ...factorItems,
   ].join('\n')
 }

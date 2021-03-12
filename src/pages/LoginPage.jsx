@@ -16,7 +16,7 @@ const LoginPage = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <h1 className={classes.title}>Tools for Diagnostic Radiology</h1>
+      <h1 className={classes.title}>RadioloG</h1>
       <LoginForm />
     </Box>
   )
