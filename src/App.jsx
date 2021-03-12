@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import indigo from '@material-ui/core/colors/indigo'
+import pink from '@material-ui/core/colors/pink'
 // import cyan from '@material-ui/core/colors/cyan'
 
 import DefaultLayout from './layouts/DefaultLayout'
@@ -13,6 +14,7 @@ import ToolsPage from './pages/ToolsPage'
 import ToolPage from './pages/ToolPage'
 import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
+import AdminPage from './pages/AdminPage'
 
 import { AuthProvider, ProtectedRoute } from './auth'
 
@@ -21,10 +23,11 @@ const theme = createMuiTheme({
     // type: 'dark',
     primary: {
       // main: cyan[800],
-      main: '#2790A5',
+      // main: '#2790A5',
+      main: indigo[600],
     },
     secondary: {
-      main: indigo[400],
+      main: pink[600],
       // main: '#C31F28',
     },
   },
@@ -44,26 +47,29 @@ function App() {
                   </Route>
                 </LoginLayout>
               </Route>
-              <ProtectedRoute>
-                <Route path="*">
-                  <DefaultLayout>
-                    <Switch>
-                      <Route exact path="/">
-                        <HomePage />
-                      </Route>
-                      <Route exact path="/tools">
-                        <ToolsPage />
-                      </Route>
-                      <Route path="/tools/:slug">
-                        <ToolPage />
-                      </Route>
-                      <Route path="*">
-                        <NotFoundPage />
-                      </Route>
-                    </Switch>
-                  </DefaultLayout>
-                </Route>
-              </ProtectedRoute>
+              <Route path="*">
+                <DefaultLayout>
+                  <Switch>
+                    <Route path="/admin">
+                      <ProtectedRoute>
+                        <AdminPage />
+                      </ProtectedRoute>
+                    </Route>
+                    <Route exact path="/">
+                      <HomePage />
+                    </Route>
+                    <Route exact path="/tools">
+                      <ToolsPage />
+                    </Route>
+                    <Route path="/tools/:slug">
+                      <ToolPage />
+                    </Route>
+                    <Route path="*">
+                      <NotFoundPage />
+                    </Route>
+                  </Switch>
+                </DefaultLayout>
+              </Route>
             </Switch>
           </Router>
         </AuthProvider>

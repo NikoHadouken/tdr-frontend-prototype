@@ -220,7 +220,7 @@ export const getResultText = (score, selections) => {
     const { title, options } = factors[factorKey]
     const { label: optionLabel, points } = options[optionKey]
     return ` - ${title}: ${optionLabel} (${points} ${
-      points > 1 ? 'Punkte' : 'Punkt'
+      points === 1 ? 'Punkt' : 'Punkte'
     })`
   })
   const selectedLocationLabel =

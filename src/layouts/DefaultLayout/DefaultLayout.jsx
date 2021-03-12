@@ -17,6 +17,8 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ScoreIcon from '@material-ui/icons/Score'
 import Hidden from '@material-ui/core/Hidden'
+import Button from '@material-ui/core/Button'
+import Container from '@material-ui/core/Container'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 import AccountCircle from '@material-ui/icons/AccountCircle'
@@ -129,49 +131,60 @@ const DefaultLayout = ({ children }) => {
     setOpen(!open)
   }
 
-  const drawer = (
-    <>
-      <div className={classes.drawerHeader}>
-        <Hidden mdUp implementation="js">
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Hidden>
-      </div>
-      <Divider />
-      <ListSubheader>
-        <Link
-          color="inherit"
-          underline="none"
-          component={RouterLink}
-          to="/tools"
-        >
-          Tools
-        </Link>
-      </ListSubheader>
-      <List>
-        {[
-          {
-            text: 'SINS',
-            to: '/tools/sins',
-            icon: ScoreIcon,
-          },
-        ].map(({ text, icon: Icon, to }) => {
-          return (
-            <ListItem button key={text} component={RouterLink} to={to}>
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        })}
-      </List>
-    </>
-  )
-
-  const container =
-    window !== undefined ? () => window.document.body : undefined
+  const drawer = (isTemporary = false) => {
+    const handleDrawerItemClick = (_e) => {
+      if (isTemporary) {
+        setOpen(false)
+      }
+    }
+    return (
+      <>
+        <div className={classes.drawerHeader}>
+          <Hidden mdUp implementation="js">
+            <IconButton onClick={handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Hidden>
+        </div>
+        <Divider />
+        <ListSubheader>
+          <Link
+            color="inherit"
+            underline="none"
+            component={RouterLink}
+            to="/tools"
+            onClick={handleDrawerItemClick}
+          >
+            Tools
+          </Link>
+        </ListSubheader>
+        <List>
+          {[
+            {
+              text: 'SINS',
+              to: '/tools/sins',
+              icon: ScoreIcon,
+            },
+          ].map(({ text, icon: Icon, to }) => {
+            return (
+              <ListItem
+                button
+                key={text}
+                component={RouterLink}
+                to={to}
+                onClick={handleDrawerItemClick}
+              >
+                <ListItemIcon>
+                  <Icon />
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          })}
+        </List>
+      </>
+    )
+  }
 
   return (
     <div className={classes.root}>
@@ -190,41 +203,49 @@ const DefaultLayout = ({ children }) => {
           <Typography variant="h6" noWrap className={classes.title}>
             Tools for Diagnostic Radiology
           </Typography>
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={menuOpen}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
-          </div>
+          {auth.isLoggedIn ? (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={menuOpen}
+                onClose={handleMenuClose}
+              >
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem component={RouterLink} to="/admin">
+                  Admin Panel
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <Button color="inherit" component={RouterLink} to="/login">
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <nav>
         {/* mobile drawer - temporary */}
         <Hidden mdUp implementation="js">
           <Drawer
-            container={container}
             variant="temporary"
             anchor="left"
             open={open}
@@ -236,7 +257,7 @@ const DefaultLayout = ({ children }) => {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            {drawer(true)}
           </Drawer>
         </Hidden>
         {/* desktop drawer */}
@@ -250,7 +271,7 @@ const DefaultLayout = ({ children }) => {
               paper: classes.drawerPaper,
             }}
           >
-            {drawer}
+            {drawer(false)}
           </Drawer>
         </Hidden>
       </nav>
@@ -259,7 +280,7 @@ const DefaultLayout = ({ children }) => {
           [classes.contentShift]: open,
         })}
       >
-        {children}
+        <Container>{children}</Container>
       </main>
     </div>
   )
