@@ -1,0 +1,49 @@
+.segment {
+  cursor: pointer;
+}
+
+.segment-c1,
+.segment-c2,
+.segment-c3,
+.segment-c4,
+.segment-c5,
+.segment-c6,
+.segment-c7 {
+  fill: rgb(235, 168, 147);
+}
+
+.segment-th1,
+.segment-th2,
+.segment-th3,
+.segment-th4,
+.segment-th5,
+.segment-th6,
+.segment-th7,
+.segment-th8,
+.segment-th9,
+.segment-th10,
+.segment-th11,
+.segment-th12 {
+  fill: #9d98e6;
+}
+
+.segment-l1,
+.segment-l2,
+.segment-l3,
+.segment-l4,
+.segment-l5 {
+  fill: #ebe581;
+}
+
+.segment-s1,
+.segment-s2_5 {
+  fill: #81ca79;
+}
+
+.segment:hover {
+  fill: #ee6d98;
+}
+
+.segment.selected {
+  fill: #d81b60;
+}
