@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/tdr-frontend-prototype/static/css/main.a846f971.chunk.css",
-    "main.js": "/tdr-frontend-prototype/static/js/main.61dbb257.chunk.js",
-    "main.js.map": "/tdr-frontend-prototype/static/js/main.61dbb257.chunk.js.map",
-    "runtime-main.js": "/tdr-frontend-prototype/static/js/runtime-main.eb93ebcd.js",
-    "runtime-main.js.map": "/tdr-frontend-prototype/static/js/runtime-main.eb93ebcd.js.map",
+    "main.css": "/tdr-frontend-prototype/static/css/main.d9cbf5c3.chunk.css",
+    "main.js": "/tdr-frontend-prototype/static/js/main.08d765bd.chunk.js",
+    "main.js.map": "/tdr-frontend-prototype/static/js/main.08d765bd.chunk.js.map",
+    "runtime-main.js": "/tdr-frontend-prototype/static/js/runtime-main.90bbc927.js",
+    "runtime-main.js.map": "/tdr-frontend-prototype/static/js/runtime-main.90bbc927.js.map",
     "static/css/2.75531a31.chunk.css": "/tdr-frontend-prototype/static/css/2.75531a31.chunk.css",
-    "static/js/2.17bcc683.chunk.js": "/tdr-frontend-prototype/static/js/2.17bcc683.chunk.js",
-    "static/js/2.17bcc683.chunk.js.map": "/tdr-frontend-prototype/static/js/2.17bcc683.chunk.js.map",
-    "static/js/3.94b84dcf.chunk.js": "/tdr-frontend-prototype/static/js/3.94b84dcf.chunk.js",
-    "static/js/3.94b84dcf.chunk.js.map": "/tdr-frontend-prototype/static/js/3.94b84dcf.chunk.js.map",
+    "static/js/2.973cfc94.chunk.js": "/tdr-frontend-prototype/static/js/2.973cfc94.chunk.js",
+    "static/js/2.973cfc94.chunk.js.map": "/tdr-frontend-prototype/static/js/2.973cfc94.chunk.js.map",
+    "static/js/3.4be60ee7.chunk.js": "/tdr-frontend-prototype/static/js/3.4be60ee7.chunk.js",
+    "static/js/3.4be60ee7.chunk.js.map": "/tdr-frontend-prototype/static/js/3.4be60ee7.chunk.js.map",
     "index.html": "/tdr-frontend-prototype/index.html",
     "static/css/2.75531a31.chunk.css.map": "/tdr-frontend-prototype/static/css/2.75531a31.chunk.css.map",
-    "static/css/main.a846f971.chunk.css.map": "/tdr-frontend-prototype/static/css/main.a846f971.chunk.css.map",
-    "static/js/2.17bcc683.chunk.js.LICENSE.txt": "/tdr-frontend-prototype/static/js/2.17bcc683.chunk.js.LICENSE.txt",
+    "static/css/main.d9cbf5c3.chunk.css.map": "/tdr-frontend-prototype/static/css/main.d9cbf5c3.chunk.css.map",
+    "static/js/2.973cfc94.chunk.js.LICENSE.txt": "/tdr-frontend-prototype/static/js/2.973cfc94.chunk.js.LICENSE.txt",
     "static/media/index.css": "/tdr-frontend-prototype/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
   },
   "entrypoints": [
-    "static/js/runtime-main.eb93ebcd.js",
+    "static/js/runtime-main.90bbc927.js",
     "static/css/2.75531a31.chunk.css",
-    "static/js/2.17bcc683.chunk.js",
-    "static/css/main.a846f971.chunk.css",
-    "static/js/main.61dbb257.chunk.js"
+    "static/js/2.973cfc94.chunk.js",
+    "static/css/main.d9cbf5c3.chunk.css",
+    "static/js/main.08d765bd.chunk.js"
   ]
 }
