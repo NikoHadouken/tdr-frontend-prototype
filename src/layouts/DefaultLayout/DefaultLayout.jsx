@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(7),
     [theme.breakpoints.up('md')]: {
       marginLeft: -drawerWidth,
       transition: theme.transitions.create('margin', {

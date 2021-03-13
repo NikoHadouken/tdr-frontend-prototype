@@ -50,11 +50,9 @@ function App() {
               <Route path="*">
                 <DefaultLayout>
                   <Switch>
-                    <Route path="/admin">
-                      <ProtectedRoute>
-                        <AdminPage />
-                      </ProtectedRoute>
-                    </Route>
+                    <ProtectedRoute path="/admin">
+                      <AdminPage />
+                    </ProtectedRoute>
                     <Route exact path="/">
                       <HomePage />
                     </Route>
