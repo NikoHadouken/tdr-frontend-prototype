@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import { makeStyles } from '@material-ui/core/styles'
 import FormControl from '@material-ui/core/FormControl'
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
   },
   buttonProgress: {
-    // color: green[500],
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -37,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -12,
   },
   card: {
-    // backgroundColor: theme.palette.primary.main,
-    // color: 'white',
-    width: '500px',
     justifyContent: 'center',
     dispaly: 'flex',
   },
@@ -49,6 +45,8 @@ const LoginForm = () => {
   const classes = useStyles()
   const auth = useAuth()
   const history = useHistory()
+  const location = useLocation()
+  const redirectTo = location?.state?.from?.pathname || '/'
 
   const [isLoading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
@@ -82,7 +80,7 @@ const LoginForm = () => {
     const user = await auth.login(credentials, handleError)
     setLoading(false)
     if (user) {
-      history.push('/')
+      history.push(redirectTo)
     }
   }
 

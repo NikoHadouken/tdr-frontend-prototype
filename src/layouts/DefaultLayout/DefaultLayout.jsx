@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
+
 import clsx from 'clsx'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
@@ -16,6 +18,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ScoreIcon from '@material-ui/icons/Score'
+import HomeIcon from '@material-ui/icons/Home'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
@@ -26,7 +29,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 
 import Link from '@material-ui/core/Link'
-import { Link as RouterLink } from 'react-router-dom'
 
 import { useAuth } from '../../auth'
 
@@ -46,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
-  title: {
+  title: {},
+  spacer: {
     flexGrow: 1,
   },
   hide: {
@@ -96,6 +99,7 @@ const DefaultLayout = ({ children }) => {
   const classes = useStyles()
   const theme = useTheme()
   const auth = useAuth()
+  const history = useHistory()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
   const [open, setOpen] = useState(undefined)
 
@@ -112,6 +116,7 @@ const DefaultLayout = ({ children }) => {
   const handleLogout = () => {
     auth.logout()
     setAnchorEl(null)
+    history.push('/')
   }
 
   useEffect(() => {
@@ -147,18 +152,30 @@ const DefaultLayout = ({ children }) => {
           </Hidden>
         </div>
         <Divider />
-        <ListSubheader>
-          <Link
-            color="inherit"
-            underline="none"
+        <List>
+          <ListItem
+            button
             component={RouterLink}
-            to="/tools"
+            to="/"
             onClick={handleDrawerItemClick}
           >
-            Tools
-          </Link>
-        </ListSubheader>
-        <List>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <Divider />
+          <ListSubheader>
+            <Link
+              color="inherit"
+              underline="none"
+              component={RouterLink}
+              to="/tools"
+              onClick={handleDrawerItemClick}
+            >
+              Tools
+            </Link>
+          </ListSubheader>
           {[
             {
               text: 'SINS',
@@ -200,9 +217,18 @@ const DefaultLayout = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap className={classes.title}>
-            RadioloG
-          </Typography>
+          <Link
+            component={RouterLink}
+            to="/"
+            className={classes.title}
+            color="inherit"
+            underline="none"
+          >
+            <Typography variant="h6" noWrap>
+              RadioloG
+            </Typography>
+          </Link>
+          <div className={classes.spacer} />
           {auth.isLoggedIn ? (
             <div>
               <IconButton

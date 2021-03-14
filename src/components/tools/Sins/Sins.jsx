@@ -101,10 +101,12 @@ const Sins = () => {
                     id: 'location',
                   }}
                 >
-                  <option aria-label="None" value="" />
+                  <option key="none" aria-label="None" value="" />
                   {Object.values(factors.location.options).map(
                     ({ key, label }) => (
-                      <option value={key}>{label}</option>
+                      <option key={key} value={key}>
+                        {label}
+                      </option>
                     )
                   )}
                 </Select>
@@ -122,7 +124,7 @@ const Sins = () => {
               ].map((factorKey) => {
                 const { title, options } = factors[factorKey]
                 return (
-                  <Grid item xs={12} sm={12} md={6} lg={4}>
+                  <Grid item key={factorKey} xs={12} sm={12} md={6} lg={4}>
                     <FormControl
                       component="fieldset"
                       className={classes.formControl}
@@ -137,6 +139,7 @@ const Sins = () => {
                         {Object.values(options).map(
                           ({ key: optionKey, label }) => (
                             <FormControlLabel
+                              key={optionKey}
                               value={optionKey}
                               control={<Radio />}
                               label={label}

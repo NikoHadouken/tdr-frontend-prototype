@@ -1,48 +1,58 @@
 import React from 'react'
-
 import { Link as RouterLink } from 'react-router-dom'
-import Link from '@material-ui/core/Link'
+
+import { makeStyles } from '@material-ui/core/styles'
 
 import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  sinsCardImg: {
+    backgroundPosition: 'calc(50% - 50px) calc(50% - 10px)',
+  },
+})
 
 const HomePage = () => {
+  const classes = useStyles()
   return (
-    <div>
-      <Link component={RouterLink} to="/tools">
-        Zu den Tools
-      </Link>
-      <h3>Lorem</h3>
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
-        non enim praesent elementum facilisis leo vel. Risus at ultrices mi
-        tempus imperdiet. Semper risus in hendrerit gravida rutrum quisque non
-        tellus. Convallis convallis tellus id interdum velit laoreet id donec
-        ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl
-        suscipit adipiscing bibendum est ultricies integer quis. Cursus euismod
-        quis viverra nibh cras. Metus vulputate eu scelerisque felis imperdiet
-        proin fermentum leo. Mauris commodo quis imperdiet massa tincidunt. Cras
-        tincidunt lobortis feugiat vivamus at augue. At augue eget arcu dictum
-        varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt.
-        Lorem donec massa sapien faucibus et molestie ac.
-      </Typography>
-
-      <h3>Consequat</h3>
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-        ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar elementum
-        integer enim neque volutpat ac tincidunt. Ornare suspendisse sed nisi
-        lacus sed viverra tellus. Purus sit amet volutpat consequat mauris.
-        Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-        vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra
-        accumsan in. In hendrerit gravida rutrum quisque non tellus orci ac.
-        Pellentesque nec nam aliquam sem et tortor. Habitant morbi tristique
-        senectus et. Adipiscing elit duis tristique sollicitudin nibh sit.
-        Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra
-        maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
-        aliquam ultrices sagittis orci a.
-      </Typography>
-    </div>
+    <>
+      <h2>Title</h2>
+      <Grid container>
+        <Grid item>
+          <Card className={classes.root}>
+            <CardActionArea component={RouterLink} to="/tools/sins">
+              <CardMedia
+                component="img"
+                alt="SINS"
+                height="160"
+                image="/tdr-frontend-prototype/img/cards/pexels-anna-shvets-4226258.jpg"
+                title="SINS"
+                className={classes.sinsCardImg}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  SINS
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  The Spinal Instability Neoplastic Score (SINS) was developed
+                  for assessing patients with spinal neoplasia. It identifies
+                  patients who may benefit from surgical consultation or
+                  intervention. It also acts as a prognostic tool for surgical
+                  decision making.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+      </Grid>
+    </>
   )
 }
 
