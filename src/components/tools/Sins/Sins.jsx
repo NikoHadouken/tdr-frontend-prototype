@@ -59,6 +59,9 @@ const Sins = () => {
   }
 
   const handleVertebraSelect = (key) => {
+    if (!Object.keys(factors.location.options).includes(key)) {
+      return
+    }
     setSelections({
       ...selections,
       location: key,
