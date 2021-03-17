@@ -13,8 +13,8 @@ import Box from '@material-ui/core/Box'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 
-import CopyTextBox from '../../CopyTextBox'
-import VertebraSelect from '../../VertebraSelect'
+import CopyTextBox from '@/components/CopyTextBox'
+import VertebraSelect from '@/components/VertebraSelect'
 
 import { factors, calculateScore, getResultText } from './sins'
 

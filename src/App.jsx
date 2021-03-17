@@ -6,17 +6,17 @@ import indigo from '@material-ui/core/colors/indigo'
 import pink from '@material-ui/core/colors/pink'
 // import cyan from '@material-ui/core/colors/cyan'
 
-import DefaultLayout from './layouts/DefaultLayout'
-import LoginLayout from './layouts/LoginLayout'
+import DefaultLayout from '@/layouts/DefaultLayout'
+import LoginLayout from '@/layouts/LoginLayout'
 
-import HomePage from './pages/HomePage'
-import ToolsPage from './pages/ToolsPage'
-import ToolPage from './pages/ToolPage'
-import LoginPage from './pages/LoginPage'
-import NotFoundPage from './pages/NotFoundPage'
-import AdminPage from './pages/AdminPage'
+import HomePage from '@/pages/HomePage'
+import ToolsPage from '@/pages/ToolsPage'
+import ToolPage from '@/pages/ToolPage'
+import LoginPage from '@/pages/LoginPage'
+import NotFoundPage from '@/pages/NotFoundPage'
+import AdminPage from '@/pages/AdminPage'
 
-import { AuthProvider, ProtectedRoute } from './auth'
+import { AuthProvider, ProtectedRoute } from '@/auth'
 
 const theme = createMuiTheme({
   palette: {

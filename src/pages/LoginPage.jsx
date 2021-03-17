@@ -7,7 +7,7 @@ import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-import LoginForm from '../components/auth/LoginForm'
+import LoginForm from '@/components/auth/LoginForm'
 
 const useStyles = makeStyles((theme) => ({
   title: {

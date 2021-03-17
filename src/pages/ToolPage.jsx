@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom'
 
 import Alert from '@material-ui/lab/Alert'
 
-import Sins from '../components/tools/Sins'
+import Sins from '@/components/tools/Sins'
 
 const ToolPage = () => {
   const {

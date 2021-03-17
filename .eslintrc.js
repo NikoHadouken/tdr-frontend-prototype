@@ -10,6 +10,20 @@ module.exports = {
     'airbnb',
     'plugin:prettier/recommended',
   ],
+  settings: {
+    "import/resolver": {
+      alias: {
+        map: [
+          ['@', './src'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json']
+      },
+      // for absolute import support via CRA + jsconfig.json but without alias:
+      // node: {
+      //   paths: ["src"],
+      // }
+    }
+  },
   parserOptions: {
     ecmaFeatures: {
       jsx: true,

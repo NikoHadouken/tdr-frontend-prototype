@@ -16,7 +16,7 @@ import CardContent from '@material-ui/core/CardContent'
 import FormGroup from '@material-ui/core/FormGroup'
 import Box from '@material-ui/core/Box'
 
-import { useAuth } from '../../auth'
+import { useAuth } from '@/auth'
 
 const useStyles = makeStyles((theme) => ({
   inputField: {
