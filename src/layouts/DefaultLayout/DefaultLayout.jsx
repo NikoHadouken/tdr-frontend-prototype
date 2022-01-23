@@ -1,107 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  Link,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  Menu,
+  MenuItem,
+  styled,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ScoreIcon from '@mui/icons-material/Score'
+import HomeIcon from '@mui/icons-material/Home'
 
-import clsx from 'clsx'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListSubheader from '@material-ui/core/ListSubheader'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ScoreIcon from '@material-ui/icons/Score'
-import HomeIcon from '@material-ui/icons/Home'
-import Hidden from '@material-ui/core/Hidden'
-import Button from '@material-ui/core/Button'
-import Container from '@material-ui/core/Container'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
-
-import Link from '@material-ui/core/Link'
-
-import { useAuth } from '../../auth'
+import { useDisclosure } from '@/hooks/use-disclosure'
+import { useAuth } from '../../auth/use-auth'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['margin', 'width'], {
+const ContentBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isDrawerOpen',
+})(({ theme, isDrawerOpen }) => ({
+  flexGrow: 1,
+  padding: 3,
+  marginTop: 7,
+  [theme.breakpoints.up('md')]: {
+    marginLeft: isDrawerOpen ? 0 : -drawerWidth,
+    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {},
-  spacer: {
-    flexGrow: 1,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    // backgroundColor: theme.palette.primary.dark,
-    // color: 'white',
-  },
-  drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    marginTop: theme.spacing(7),
-    [theme.breakpoints.up('md')]: {
-      marginLeft: -drawerWidth,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-  },
-  contentShift: {
-    [theme.breakpoints.up('md')]: {
-      marginLeft: 0,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
+    // ...(isDrawerOpen && {
+    //   transition: theme.transitions.create('margin', {
+    //     easing: theme.transitions.easing.easeOut,
+    //     duration: theme.transitions.duration.enteringScreen,
+    //   }),
+    // }),
   },
 }))
 
 const DefaultLayout = ({ children }) => {
-  const classes = useStyles()
   const theme = useTheme()
   const auth = useAuth()
-  const history = useHistory()
+  const navigate = useNavigate()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
-  const [open, setOpen] = useState(undefined)
+  const drawer = useDisclosure()
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const menuOpen = Boolean(anchorEl)
@@ -116,41 +76,43 @@ const DefaultLayout = ({ children }) => {
   const handleLogout = () => {
     auth.logout()
     setAnchorEl(null)
-    history.push('/')
+    navigate('/')
   }
 
   useEffect(() => {
-    if (open !== undefined) {
+    if (drawer.isOpen !== undefined) {
       return
     }
     if (isDesktop) {
-      setOpen(true)
+      drawer.open()
     }
   }, [isDesktop])
 
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
-
-  const handleDrawerToggle = () => {
-    setOpen(!open)
-  }
-
-  const drawer = (isTemporary = false) => {
+  const drawerContent = (isTemporary = false) => {
     const handleDrawerItemClick = (_e) => {
       if (isTemporary) {
-        setOpen(false)
+        drawer.close()
       }
     }
     return (
       <>
-        <div className={classes.drawerHeader}>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            py: 0,
+            px: 2,
+            justifyContent: 'end',
+          }}
+        >
           <Hidden mdUp implementation="js">
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
+            <Box>
+              <IconButton onClick={() => drawer.close()}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Box>
           </Hidden>
-        </div>
+        </Toolbar>
+
         <Divider />
         <List>
           <ListItem
@@ -203,64 +165,81 @@ const DefaultLayout = ({ children }) => {
     )
   }
 
+  const appBarMenu = () => {
+    return (
+      <div>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          open={menuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          <MenuItem component={RouterLink} to="/admin">
+            Admin Panel
+          </MenuItem>
+        </Menu>
+      </div>
+    )
+  }
+
   return (
-    <div className={classes.root}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar
+        position="fixed"
+        sx={{
+          ...(isDesktop && {
+            zIndex: theme.zIndex.drawer + 1,
+          }),
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerToggle}
+            onClick={() => drawer.toggle()}
             edge="start"
-            className={classes.menuButton}
+            sx={{
+              marginRight: 2,
+            }}
           >
             <MenuIcon />
           </IconButton>
-          <Link
-            component={RouterLink}
-            to="/"
-            className={classes.title}
-            color="inherit"
-            underline="none"
-          >
+          <Link component={RouterLink} to="/" color="inherit" underline="none">
             <Typography variant="h6" noWrap>
               RadioloG
             </Typography>
           </Link>
-          <div className={classes.spacer} />
+          <Box
+            sx={{
+              flexGrow: 1,
+            }}
+          />
           {auth.isLoggedIn ? (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={menuOpen}
-                onClose={handleMenuClose}
-              >
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                <MenuItem component={RouterLink} to="/admin">
-                  Admin Panel
-                </MenuItem>
-              </Menu>
-            </div>
+            <>{appBarMenu()}</>
           ) : (
             <Button color="inherit" component={RouterLink} to="/login">
               Login
@@ -274,41 +253,43 @@ const DefaultLayout = ({ children }) => {
           <Drawer
             variant="temporary"
             anchor="left"
-            open={open}
-            onClose={handleDrawerClose}
-            classes={{
-              paper: classes.drawerPaper,
+            open={drawer.isOpen}
+            onClose={() => drawer.close()}
+            sx={{
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+              },
             }}
             ModalProps={{
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer(true)}
+            {drawerContent(true)}
           </Drawer>
         </Hidden>
         {/* desktop drawer */}
-        <Hidden smDown implementation="js">
+        <Hidden mdDown implementation="js">
           <Drawer
-            className={classes.drawer}
+            sx={{
+              width: drawerWidth,
+              flexShrink: 0,
+              '& .MuiDrawer-paper': {
+                width: drawerWidth,
+              },
+            }}
             variant="persistent"
             anchor="left"
-            open={open}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+            open={drawer.isOpen}
           >
-            {drawer(false)}
+            {drawerContent(false)}
           </Drawer>
         </Hidden>
       </nav>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
+      <ContentBox isDrawerOpen={drawer.isOpen}>
+        <Toolbar />
         <Container>{children}</Container>
-      </main>
-    </div>
+      </ContentBox>
+    </Box>
   )
 }
 

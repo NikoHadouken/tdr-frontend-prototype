@@ -1,36 +1,23 @@
 import React, { useState, useMemo } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-
-import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import FormControl from '@material-ui/core/FormControl'
-import FormLabel from '@material-ui/core/FormLabel'
-import Alert from '@material-ui/lab/Alert'
-import Grid from '@material-ui/core/Grid'
-import Box from '@material-ui/core/Box'
-
-import InputLabel from '@material-ui/core/InputLabel'
-import Select from '@material-ui/core/Select'
+import {
+  Alert,
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  InputLabel,
+  Radio,
+  RadioGroup,
+  Select,
+} from '@mui/material'
 
 import CopyTextBox from '@/components/CopyTextBox'
 import VertebraSelect from '@/components/VertebraSelect'
 
 import { factors, calculateScore, getResultText } from './sins'
 
-const useStyles = makeStyles((theme) => ({
-  locationWrapper: {
-    margin: theme.spacing(3),
-  },
-  formControl: {
-    margin: theme.spacing(3),
-    minWidth: 120,
-  },
-}))
-
 const Sins = () => {
-  const classes = useStyles()
-
   const [selections, setSelections] = useState({
     location: '',
     pain: '',
@@ -80,7 +67,9 @@ const Sins = () => {
               display="flex"
               flexDirection="row"
               justifyContent="space-around"
-              className={classes.locationWrapper}
+              sx={{
+                margin: 3,
+              }}
             >
               <VertebraSelect
                 height="600"
@@ -127,7 +116,10 @@ const Sins = () => {
                   <Grid item key={factorKey} xs={12} sm={12} md={6} lg={4}>
                     <FormControl
                       component="fieldset"
-                      className={classes.formControl}
+                      sx={{
+                        margin: 3,
+                        minWidth: 120,
+                      }}
                     >
                       <FormLabel component="legend">{title}</FormLabel>
                       <RadioGroup

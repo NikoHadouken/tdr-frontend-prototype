@@ -1,10 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
-import indigo from '@material-ui/core/colors/indigo'
-import pink from '@material-ui/core/colors/pink'
-// import cyan from '@material-ui/core/colors/cyan'
+import { createTheme, ThemeProvider } from '@mui/material'
+import indigo from '@mui/material/colors/indigo'
+import pink from '@mui/material/colors/pink'
 
 import DefaultLayout from '@/layouts/DefaultLayout'
 import LoginLayout from '@/layouts/LoginLayout'
@@ -16,9 +15,10 @@ import LoginPage from '@/pages/LoginPage'
 import NotFoundPage from '@/pages/NotFoundPage'
 import AdminPage from '@/pages/AdminPage'
 
-import { AuthProvider, ProtectedRoute } from '@/auth'
+import { AuthProvider } from '@/auth/use-auth'
+import RequireAuth from './auth/RequireAuth'
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     // type: 'dark',
     primary: {
@@ -33,42 +33,44 @@ const theme = createMuiTheme({
   },
 })
 
-function App() {
+const App = () => {
   return (
     <div className="app">
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <Router basename="/tdr-frontend-prototype">
-            <Switch>
-              <Route path="/login">
-                <LoginLayout>
-                  <Route path="/login">
+            <Routes>
+              <Route
+                path="/login"
+                element={
+                  <LoginLayout>
                     <LoginPage />
-                  </Route>
-                </LoginLayout>
-              </Route>
-              <Route path="*">
-                <DefaultLayout>
-                  <Switch>
-                    <ProtectedRoute path="/admin">
-                      <AdminPage />
-                    </ProtectedRoute>
-                    <Route exact path="/">
-                      <HomePage />
-                    </Route>
-                    <Route exact path="/tools">
-                      <ToolsPage />
-                    </Route>
-                    <Route path="/tools/:slug">
-                      <ToolPage />
-                    </Route>
-                    <Route path="*">
-                      <NotFoundPage />
-                    </Route>
-                  </Switch>
-                </DefaultLayout>
-              </Route>
-            </Switch>
+                  </LoginLayout>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <DefaultLayout>
+                    <Routes>
+                      <Route
+                        path="/admin"
+                        element={
+                          <RequireAuth>
+                            <AdminPage />
+                          </RequireAuth>
+                        }
+                      />
+                      <Route exact path="/" element={<HomePage />} />
+                      <Route exact path="/tools" element={<ToolsPage />} />
+                      <Route path="/tools/:toolKey" element={<ToolPage />} />
+
+                      <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                  </DefaultLayout>
+                }
+              />
+            </Routes>
           </Router>
         </AuthProvider>
       </ThemeProvider>

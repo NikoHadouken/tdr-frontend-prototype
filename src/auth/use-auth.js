@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, createContext, useContext } from 'react'
-import { Route, Redirect } from 'react-router-dom'
 
 import authApi from './fakeAuth'
 
@@ -50,27 +49,4 @@ function useAuthProvider() {
 export const AuthProvider = ({ children }) => {
   const auth = useAuthProvider()
   return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
-}
-
-// A wrapper for <Route> that redirects to the login
-// screen if you're not yet authenticated.
-export const ProtectedRoute = ({ children, ...props }) => {
-  const auth = useAuth()
-  return (
-    <Route
-      {...props}
-      render={({ location }) =>
-        auth.isLoggedIn ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: '/login',
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  )
 }

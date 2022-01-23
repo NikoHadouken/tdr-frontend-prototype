@@ -1,32 +1,25 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-
-import { makeStyles } from '@material-ui/core/styles'
-
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import Card from '@material-ui/core/Card'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  sinsCardImg: {
-    backgroundPosition: 'calc(50% - 50px) calc(50% - 10px)',
-  },
-})
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Grid,
+  Typography,
+} from '@mui/material'
 
 const HomePage = () => {
-  const classes = useStyles()
   return (
     <>
       <h2>Title</h2>
       <Grid container>
         <Grid item>
-          <Card className={classes.root}>
+          <Card
+            sx={{
+              maxWidth: 345,
+            }}
+          >
             <CardActionArea component={RouterLink} to="/tools/sins">
               <CardMedia
                 component="img"
@@ -34,7 +27,9 @@ const HomePage = () => {
                 height="160"
                 image="/tdr-frontend-prototype/img/cards/pexels-anna-shvets-4226258.jpg"
                 title="SINS"
-                className={classes.sinsCardImg}
+                sx={{
+                  backgroundPosition: 'calc(50% - 50px) calc(50% - 10px)',
+                }}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

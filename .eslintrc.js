@@ -44,5 +44,9 @@ module.exports = {
     'react/prop-types': 'off',
     'no-underscore-dangle': 'off',
     'import/prefer-default-export': 'off',
+    "react/function-component-definition": ['warn', {
+      "namedComponents": "arrow-function",
+      "unnamedComponents":"arrow-function"
+    }]
   },
 }

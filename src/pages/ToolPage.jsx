@@ -1,23 +1,16 @@
 import React from 'react'
-import { useRouteMatch } from 'react-router-dom'
-
-import Alert from '@material-ui/lab/Alert'
-
+import { useParams } from 'react-router-dom'
+import { Alert } from '@mui/material'
 import Sins from '@/components/tools/Sins'
 
 const ToolPage = () => {
-  const {
-    params: { slug },
-  } = useRouteMatch()
+  const { toolKey = '' } = useParams()
 
-  /*
-  const { slug } = match.params
-  */
   const components = {
     sins: Sins,
   }
-  const toolExists = Object.keys(components).includes(slug)
-  const Tool = components[slug]
+  const toolExists = Object.keys(components).includes(toolKey)
+  const Tool = components[toolKey]
 
   return (
     <div>

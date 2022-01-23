@@ -1,21 +1,3 @@
-html,
-body,
-#root,
-.app {
-  height: 100%;
-  width: 100%;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.app-content {
-  flex-grow: 1;
-}
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

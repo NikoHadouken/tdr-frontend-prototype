@@ -1,26 +1,18 @@
 import React, { useState } from 'react'
-
 import copy from 'clipboard-copy'
-
-import { makeStyles } from '@material-ui/core/styles'
-
-import Snackbar from '@material-ui/core/Snackbar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined'
-import CloseIcon from '@material-ui/icons/Close'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import Tooltip from '@material-ui/core/Tooltip'
-
-const useStyles = makeStyles((_theme) => ({
-  title: {
-    flexGrow: 1,
-  },
-}))
+import {
+  Card,
+  CardContent,
+  IconButton,
+  Snackbar,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import FileCopyOutlinedIcon from '@mui/icons-material/FileCopyOutlined'
 
 const CopyTextBox = ({ title = '', text }) => {
-  const classes = useStyles()
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
@@ -38,13 +30,16 @@ const CopyTextBox = ({ title = '', text }) => {
   return (
     <>
       <Toolbar>
-        <h3 className={classes.title}>{title}</h3>
+        <Typography
+          variant="h3"
+          sx={{
+            flexGrow: 1,
+          }}
+        >
+          {title}
+        </Typography>
         <Tooltip title="Text kopieren">
-          <IconButton
-            aria-label="copy to clipboard"
-            className={classes.copyButton}
-            onClick={handleClick}
-          >
+          <IconButton aria-label="copy to clipboard" onClick={handleClick}>
             <FileCopyOutlinedIcon />
           </IconButton>
         </Tooltip>

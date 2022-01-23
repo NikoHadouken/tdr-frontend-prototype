@@ -1,50 +1,32 @@
 import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  Button,
+  IconButton,
+  InputAdornment,
+  CircularProgress,
+  Card,
+  CardContent,
+  FormGroup,
+  Box,
+} from '@mui/material'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Visibility from '@mui/icons-material/Visibility'
 
-import { makeStyles } from '@material-ui/core/styles'
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import InputAdornment from '@material-ui/core/InputAdornment'
-import Visibility from '@material-ui/icons/Visibility'
-import VisibilityOff from '@material-ui/icons/VisibilityOff'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import FormGroup from '@material-ui/core/FormGroup'
-import Box from '@material-ui/core/Box'
+import { useAuth } from '@/auth/use-auth'
 
-import { useAuth } from '@/auth'
-
-const useStyles = makeStyles((theme) => ({
-  inputField: {
-    margin: theme.spacing(2),
-    width: '300px',
-    color: 'inherit',
-  },
-  wrapper: {
-    margin: theme.spacing(2),
-    position: 'relative',
-  },
-  buttonProgress: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    marginTop: -12,
-    marginLeft: -12,
-  },
-  card: {
-    justifyContent: 'center',
-    dispaly: 'flex',
-  },
-}))
+const inputStyles = {
+  margin: 2,
+  width: '300px',
+  color: 'inherit',
+}
 
 const LoginForm = () => {
-  const classes = useStyles()
   const auth = useAuth()
-  const history = useHistory()
+  const navigate = useNavigate()
   const location = useLocation()
   const redirectTo = location?.state?.from?.pathname || '/'
 
@@ -80,16 +62,22 @@ const LoginForm = () => {
     const user = await auth.login(credentials, handleError)
     setLoading(false)
     if (user) {
-      history.push(redirectTo)
+      navigate(redirectTo)
     }
   }
 
   return (
-    <Card variant="outlined" className={classes.card}>
+    <Card
+      variant="outlined"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <CardContent>
         <form onSubmit={handleSubmit}>
           <Box display="flex" flexDirection="column" alignItems="center">
-            <FormControl className={classes.inputField}>
+            <FormControl sx={inputStyles}>
               <InputLabel htmlFor="email">E-Mail</InputLabel>
               <Input
                 id="name"
@@ -100,7 +88,7 @@ const LoginForm = () => {
               />
             </FormControl>
             <FormGroup>
-              <FormControl className={classes.inputField}>
+              <FormControl sx={inputStyles}>
                 <InputLabel htmlFor="password">Password</InputLabel>
                 <Input
                   id="password"
@@ -122,19 +110,30 @@ const LoginForm = () => {
                 />
               </FormControl>
             </FormGroup>
-            <div className={classes.wrapper}>
+            <div
+              sx={{
+                margin: 2,
+                position: 'relative',
+              }}
+            >
               <Button
                 type="submit"
                 variant="outlined"
                 color="primary"
-                className={classes.inputField}
+                sx={inputStyles}
                 disabled={isLoading}
               >
                 Login
                 {isLoading && (
                   <CircularProgress
                     size={18}
-                    className={classes.buttonProgress}
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      marginTop: -12,
+                      marginLeft: -12,
+                    }}
                   />
                 )}
               </Button>
